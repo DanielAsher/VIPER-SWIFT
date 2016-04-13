@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-class AppDependencies {
-    var listWireframe = ListWireframe()
+public class AppDependencies {
+    public var listWireframe = ListWireframe()
     
     init() {
         configureDependencies()
@@ -34,7 +34,7 @@ class AppDependencies {
         let addPresenter = AddPresenter()
         let addDataManager = AddDataManager()
         
-        listInteractor.output = listPresenter
+        listInteractor.listPresenter = listPresenter
         
         listPresenter.listInteractor = listInteractor
         listPresenter.listWireframe = listWireframe

@@ -9,7 +9,7 @@
 import Foundation
 
 class ListInteractor : NSObject, ListInteractorInput {
-    var output : ListInteractorOutput?
+    var listPresenter : ListInteractorOutput?
     
     let clock : Clock
     let dataManager : ListDataManager
@@ -27,17 +27,17 @@ class ListInteractor : NSObject, ListInteractorInput {
             endDate: endOfNextWeek,
             completion: { todoItems in
                 let upcomingItems = self.upcomingItemsFromToDoItems(todoItems)
-                self.output?.foundUpcomingItems(upcomingItems)
+                self.listPresenter?.foundUpcomingItems(upcomingItems)
         })
     }
     
-    func upcomingItemsFromToDoItems(todoItems: TodoItem[]) -> UpcomingItem[] {
+    func upcomingItemsFromToDoItems(todoItems: [TodoItem]) -> [UpcomingItem] {
         let calendar = NSCalendar.autoupdatingCurrentCalendar()
         
-        var upcomingItems : UpcomingItem[] = []
+        var upcomingItems : [UpcomingItem] = []
         
         for todoItem in todoItems {
-            var dateRelation = calendar.nearTermRelationForDate(todoItem.dueDate, relativeToToday: clock.today())
+            let dateRelation = calendar.nearTermRelationForDate(todoItem.dueDate, relativeToToday: clock.today())
             let upcomingItem = UpcomingItem(title: todoItem.name, dueDate: todoItem.dueDate, dateRelation: dateRelation)
             upcomingItems.insert(upcomingItem, atIndex: upcomingItems.endIndex)
         }

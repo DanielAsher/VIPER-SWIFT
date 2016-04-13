@@ -118,6 +118,7 @@
 		26D96F9B19428C3600F117F5 /* CalendarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTests.swift; sourceTree = "<group>"; };
 		26D96FAB1942967900F117F5 /* RelativeDateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeDateTests.swift; sourceTree = "<group>"; };
 		26D96FAD19429A9000F117F5 /* DataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTests.swift; sourceTree = "<group>"; };
+		657358241CBE66FE000C4D88 /* Viper.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Viper.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +142,7 @@
 		261FA1451941497E0029F589 = {
 			isa = PBXGroup;
 			children = (
+				657358241CBE66FE000C4D88 /* Viper.playground */,
 				261FA1501941497E0029F589 /* VIPER-SWIFT */,
 				261FA1631941497E0029F589 /* VIPER-SWIFTTests */,
 				261FA14F1941497E0029F589 /* Products */,
@@ -520,6 +522,8 @@
 		261FA1461941497E0029F589 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0730;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Conrad Stoll";
 				TargetAttributes = {

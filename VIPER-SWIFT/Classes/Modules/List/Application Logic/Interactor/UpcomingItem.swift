@@ -9,17 +9,10 @@
 import Foundation
 
 struct UpcomingItem : Equatable {
-    let title : String = ""
-    let dueDate : NSDate = NSDate()
-    let dateRelation : NearTermDateRelation = NearTermDateRelation.OutOfRange
-    
-    init(title: String, dueDate: NSDate, dateRelation: NearTermDateRelation) {
-        self.title = title
-        self.dueDate = dueDate
-        self.dateRelation = dateRelation
-    }
+    let title : String
+    let dueDate : NSDate 
+    let dateRelation : NearTermDateRelation
 }
-
 func == (leftSide: UpcomingItem, rightSide: UpcomingItem) -> Bool {
     var hasEqualSections = false
     hasEqualSections = rightSide.title == leftSide.title
