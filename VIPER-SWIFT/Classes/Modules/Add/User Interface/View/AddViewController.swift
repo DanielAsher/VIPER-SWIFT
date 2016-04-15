@@ -8,9 +8,10 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class AddViewController: UIViewController, UITextFieldDelegate, AddViewInterface {
-    var eventHandler : AddModuleInterface?
+    var eventHandler : AddModuleRxInterface?
 
     @IBOutlet var nameTextField : UITextField!
     @IBOutlet var datePicker : UIDatePicker?
@@ -18,13 +19,21 @@ class AddViewController: UIViewController, UITextFieldDelegate, AddViewInterface
     var minimumDate : NSDate = NSDate()
     var transitioningBackgroundView : UIView = UIView()
     
+    var disposeBag = DisposeBag()
+    
     @IBAction func save(sender: AnyObject) {
-        eventHandler?.saveAddActionWithName(nameTextField.text!, dueDate: datePicker!.date)
+        eventHandler?
+        .rx_saveAddActionWithName(nameTextField.text!, dueDate: datePicker!.date)
+        .subscribeNext { evt in }
+        .addDisposableTo(disposeBag)
     }
     
     @IBAction func cancel(sender: AnyObject) {
         nameTextField.resignFirstResponder()
-        eventHandler?.cancelAddAction()
+        eventHandler?
+        .rx_cancelAddAction()
+        .subscribeNext { evt in }
+        .addDisposableTo(disposeBag)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,7 +58,10 @@ class AddViewController: UIViewController, UITextFieldDelegate, AddViewInterface
     }
     
     func dismiss() {
-        eventHandler?.cancelAddAction()
+        eventHandler?
+        .rx_cancelAddAction()
+        .subscribeNext { evt in }
+        .addDisposableTo(disposeBag)
     }
     
     func setEntryName(name: NSString) {

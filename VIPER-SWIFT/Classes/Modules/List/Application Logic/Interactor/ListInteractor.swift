@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import RxSwift
 
-class ListInteractor : NSObject, ListInteractorInput {
-    var listPresenter : ListInteractorOutput?
+class ListInteractor { //: NSObject, ListInteractorInput {
+    //var listPresenter : ListInteractorOutput?
     
     let clock : Clock
     let dataManager : ListDataManager
@@ -19,18 +20,25 @@ class ListInteractor : NSObject, ListInteractorInput {
         self.clock = clock
     }
     
-    func findUpcomingItems() {
+    func rx_findUpcomingItems() -> Observable<[UpcomingItem]> {
+        
         let today = clock.today()
         let endOfNextWeek = NSCalendar.currentCalendar().dateForEndOfFollowingWeekWithDate(today)
         
-        dataManager.todoItemsBetweenStartDate(today,
-            endDate: endOfNextWeek,
-            completion: { todoItems in
-                let upcomingItems = self.upcomingItemsFromToDoItems(todoItems)
-                self.listPresenter?.foundUpcomingItems(upcomingItems)
-        })
+        return Observable<[UpcomingItem]>.create { observer in
+            self.dataManager.todoItemsBetweenStartDate(today,
+                endDate: endOfNextWeek,
+                completion: { todoItems in
+                    let upcomingItems = self.upcomingItemsFromToDoItems(todoItems)
+                    observer.onNext(upcomingItems)
+                    observer.onCompleted()
+                }
+            )
+            return NopDisposable.instance
+        }
+        .take(1)
     }
-    
+        
     func upcomingItemsFromToDoItems(todoItems: [TodoItem]) -> [UpcomingItem] {
         let calendar = NSCalendar.autoupdatingCurrentCalendar()
         

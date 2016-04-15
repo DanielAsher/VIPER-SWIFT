@@ -12,8 +12,13 @@ class UpcomingDisplayDataCollection {
     let dayFormatter = NSDateFormatter()
     var sections : Dictionary<NearTermDateRelation, [UpcomingDisplayItem]> = [:]
     
-    init() {
+    required init() {
         dayFormatter.dateFormat = NSDateFormatter.dateFormatFromTemplate("EEEE", options: 0, locale: NSLocale.autoupdatingCurrentLocale())
+    }
+    
+    convenience init(_ upcomingItems: [UpcomingItem]) {
+        self.init()
+        addUpcomingItems(upcomingItems)
     }
     
     func addUpcomingItems(upcomingItems: [UpcomingItem]) {

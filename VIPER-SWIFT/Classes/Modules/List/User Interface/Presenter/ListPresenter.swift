@@ -8,38 +8,37 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
-class ListPresenter : ListInteractorOutput, ListModuleInterface, AddModuleDelegate {
-    var listInteractor : ListInteractorInput?
+class ListPresenter : 
+    //ListInteractorOutput, 
+    ListModuleInterface, AddModuleDelegate {
+
+    let listInteractor : ListInteractor
     var listWireframe : ListWireframe?
     var userInterface : ListViewInterface?
+
+    var disposeBag = DisposeBag()
     
-    //override init() {
-    //}
+    init(listInteractor: ListInteractor) { //, listWireframe: ListWireframe, userInterface: ListViewInterface?) {
+        self.listInteractor = listInteractor
+        //self.listWireframe = listWireframe
+        //self.userInterface = userInterface
+    }
     
     func updateView() {
-        listInteractor?.findUpcomingItems()
+        listInteractor
+        .rx_findUpcomingItems()
+        .subscribeNext { upcomingItems in 
+            if upcomingItems.count == 0 {
+                self.userInterface?.showNoContentMessage()
+            } else {
+                let collection = UpcomingDisplayDataCollection(upcomingItems)
+                self.userInterface?.showUpcomingDisplayData(collection.collectedDisplayData())
+            }
+        }.addDisposableTo(disposeBag)
     }
-    
-    func foundUpcomingItems(upcomingItems: [UpcomingItem]) {
-        if upcomingItems.count == 0 {
-            userInterface?.showNoContentMessage()
-        } else {
-            updateUserInterfaceWithUpcomingItems(upcomingItems)
-        }
-    }
-    
-    func updateUserInterfaceWithUpcomingItems(upcomingItems: [UpcomingItem]) {
-        let upcomingDisplayData = upcomingDisplayDataWithItems(upcomingItems)
-        userInterface?.showUpcomingDisplayData(upcomingDisplayData)
-    }
-    
-    func upcomingDisplayDataWithItems(upcomingItems: [UpcomingItem]) -> UpcomingDisplayData {
-        let collection = UpcomingDisplayDataCollection()
-        collection.addUpcomingItems(upcomingItems)
-        return collection.collectedDisplayData()
-    }
-    
+        
     func addNewEntry() {
         listWireframe?.presentAddInterface()
     }

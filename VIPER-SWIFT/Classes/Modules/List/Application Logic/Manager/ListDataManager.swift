@@ -12,6 +12,10 @@ import Foundation
 class ListDataManager : NSObject {
     var coreDataStore : CoreDataStore?
 
+    init(coreDataStore: CoreDataStore) {
+        self.coreDataStore = coreDataStore
+    }
+    
     func todoItemsBetweenStartDate(startDate: NSDate, endDate: NSDate, completion: (([TodoItem]) -> Void)!) {
         let calendar = NSCalendar.autoupdatingCurrentCalendar()
         let beginning = calendar.dateForBeginningOfDay(startDate)

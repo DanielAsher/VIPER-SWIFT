@@ -7,6 +7,13 @@
 //
 
 import Foundation
+import RxSwift
+
+protocol AddModuleRxInterface {
+    var events : Observable<AddModuleEvent> { get }
+    func rx_cancelAddAction() -> Observable<AddModuleEvent>
+    func rx_saveAddActionWithName(name: NSString, dueDate: NSDate) -> Observable<AddModuleEvent> 
+}
 
 protocol AddModuleInterface {
     func cancelAddAction()

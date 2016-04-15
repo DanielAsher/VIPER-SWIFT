@@ -16,6 +16,12 @@ class AddWireframe : NSObject, UIViewControllerTransitioningDelegate {
     var addPresenter : AddPresenter?
     var presentedViewController : UIViewController?
     
+    init(addPresenter: AddPresenter) {
+        super.init()
+        self.addPresenter = addPresenter
+        addPresenter.addWireframe = self
+    }
+    
     func presentAddInterfaceFromViewController(viewController: UIViewController) {
         let newViewController = addViewController()
         newViewController.eventHandler = addPresenter

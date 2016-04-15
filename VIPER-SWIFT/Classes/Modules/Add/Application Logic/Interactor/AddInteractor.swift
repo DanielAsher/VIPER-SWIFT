@@ -9,10 +9,14 @@
 import Foundation
 
 class AddInteractor : NSObject {
-    var addDataManager : AddDataManager?
+    var addDataManager : AddDataManager
+    
+    init(addDataManager: AddDataManager) {
+        self.addDataManager = addDataManager
+    }
     
     func saveNewEntryWithName(name: NSString, dueDate: NSDate) {
         let newEntry = TodoItem(dueDate: dueDate, name: name as String)
-        addDataManager?.addNewEntry(newEntry)
+        addDataManager.addNewEntry(newEntry)
     }
 }

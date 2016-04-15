@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum AddModuleEvent {
+    case DidCancel, DidSave
+}
+
 protocol AddModuleDelegate {
     func addModuleDidCancelAddAction()
     func addModuleDidSaveAddAction()
