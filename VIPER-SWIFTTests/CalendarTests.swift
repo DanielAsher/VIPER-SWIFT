@@ -9,7 +9,7 @@
 import XCTest
 
 class CalendarTests: XCTestCase {
-    var calendar = NSCalendar()
+    var calendar = NSCalendar.autoupdatingCurrentCalendar()
 
     override func setUp() {
         super.setUp()

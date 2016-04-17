@@ -9,7 +9,7 @@
 import XCTest
 
 class RelativeDateTests: XCTestCase {
-    var calendar = NSCalendar()
+    var calendar = NSCalendar.gregorianCalendar()
     
     override func setUp() {
         super.setUp()
